@@ -4,13 +4,11 @@ import java.util.Scanner;
 	
 	// By Mark Tremblay
 	
-	// Version 16
+	// Version 17
 	/* 
-	In this version I've
-					1. Cleaned up the object instantiation test and added more tests for my methods
-					2. Changed a few local variable names.
-					3. Created a new method to delete an object from activeObjLists
-					4. Made my comments clearer.
+	Version 17 Notes: JAN 30th
+
+			1. Fixed <=MAX_ACTIVE_OBJECTS to < MAX_ACTIVE_OBJECTS in if statement for instantiateObstacle method.
 	*/
 
 public class AnimationApplication
@@ -95,7 +93,7 @@ public class AnimationApplication
 	// Creates new Obstacle object and adds it to the activeObjList.
 	public void instantiateObstacle(AnimationApplication gameEngine)
 	{
-		if( numActiveObj <= MAX_ACTIVE_OBJECTS && 
+		if( numActiveObj < MAX_ACTIVE_OBJECTS && 
 		    numActiveObj >= 0 )
 		{
 			//Obstacle obstacleCharacter = new Obstacle();
