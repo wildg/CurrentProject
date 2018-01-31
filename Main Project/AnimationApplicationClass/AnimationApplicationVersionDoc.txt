@@ -31,7 +31,7 @@ Version 16 Notes: JAN 3Oth
 					3. Created a new method to delete an object from activeObjLists
 					4. Made my comments clearer.
 					
-______________________________________________________________________________________________________________
+____________________________________________________________________________________________________________
 
 Version 17 Notes: JAN 30th
 
