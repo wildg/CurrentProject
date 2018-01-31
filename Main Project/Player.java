@@ -8,11 +8,11 @@ public class Player
 	{
 		if(playerHealth<=0)
 		{
-			return False;
+			return false;
 		}
 		else
 		{
-			return True;
+			return true;
 		}
 	}
 
