@@ -1,0 +1,32 @@
+Version 14 Notes: JAN 3Oth
+
+					 In this version I've: 
+					 1. Built methods to instantiate player and obstacle objects. I've built
+						conditions in these methods to control the max number of objects allowed
+						in the game at a time using a constant called MAX_ACTIVE_OBJECTS.
+						
+					 2. Created an instance variable of type Object Array called activeObjList, 
+						which will be useful to keep track of objects that have been instantiated 
+						during the application run. Instantiated objects are automatically
+						added to this list, and indexes for these objects are chosen by iterating
+						through the indexes and appending to the first that contains null.
+						
+					 3. Created a test in the main method to try out these new methods.
+____________________________________________________________________________________________________________
+
+Version 15 Notes: JAN 3Oth
+					
+					In this version I've:
+					
+					1. Edited object instantiation and deletion test.
+					2. Created a printActiveObjList class to aid in test.
+					
+____________________________________________________________________________________________________________
+					 
+Version 16 Notes: JAN 3Oth
+
+					In this version I've
+					1. Cleaned up the object instantiation test and added more tests for my methods
+					2. Changed a few local variable names.
+					3. Created a new method to delete an object from activeObjLists
+					4. Made my comments clearer.
