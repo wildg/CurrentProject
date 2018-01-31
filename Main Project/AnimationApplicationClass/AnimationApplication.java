@@ -3,40 +3,47 @@ import java.util.Scanner;
 	// January 30th, 2018
 	
 	// By Mark Tremblay
-	
-	// Version 17
 	/* 
-	Version 17 Notes: JAN 30th
-
-			1. Fixed <=MAX_ACTIVE_OBJECTS to < MAX_ACTIVE_OBJECTS in if statement for instantiateObstacle method.
+	Version 18 Notes: JAN 30
+	
+			1. Remove object method test in main method.
+			2. import Player Class. Current working version
+			   in my structure is PlayerWV2.java
+			3. Changed any references activeObjList to activeObstacleList. It will only
+			   deal with objects of Obstacle type, although for the time being I'm using 
+			   Scanner as a placeholder.
+			4. Changed all methods to reflect changes in program form, replacing obj
+			   with obstacle.
+			5. Updated comments to reflect changes
+			6. Created test to test simple changes.
+		
 	*/
 
 public class AnimationApplication
 {
 	
-	private final int MAX_ACTIVE_OBJECTS = 4; 
-	private int numActiveObj = 0;
+	private final int MAX_ACTIVE_OBSTACLES = 4; 
+	private int numActiveObstacle = 0;
 	
-	Object[] activeObjList = new Object[MAX_ACTIVE_OBJECTS];
-	// This list will be used to keep track of and reference active objects in the game.
+	Scanner[] activeObstacleList = new Scanner[MAX_ACTIVE_OBSTACLES]; // Will use Scanner for Array type until Obstacle class imported
 	
-	public void addToActiveObjList(Scanner myObject)
+	public void addToActiveObstacleList(Scanner myObject)
 	{
-		for(int index=0; index < activeObjList.length; index++)
+		for(int index=0; index < activeObstacleList.length; index++)
 		{
-			if(activeObjList[index] == null)
+			if(activeObstacleList[index] == null)
 			{
-				activeObjList[index] = myObject;
+				activeObstacleList[index] = myObject;
 				break;
 			}
 			
 		}
 	}
 	
-	// This method is used for testing. It will print out the contents of the activeObjList
-	public void printActiveObjList(Object[] myList)
+	// This method is used for testing. It will print out the contents of the activeObstacleList
+	public void printActiveObstacleList(Object[] myList)
 	{
-		System.out.print("activeObjectList: [ "); // print out activeObjList to see if items were properly added when instantiated.
+		System.out.print("activeObstacleList: [ "); 
 		for(int index = 0; index < myList.length;) 
 		{
 			if(myList[index] != null)
@@ -56,117 +63,58 @@ public class AnimationApplication
 		
 	}
 	
-	//Removes object at specified index from activeObjList by putting a null value in its place.
-	public void deleteActiveObject(int index) 
+	//Removes obstacle at specified index from activeObstacleList by putting a null value in its place.
+	public void deleteObstacle(int index) 
 	{
-		if (index < activeObjList.length && index >= 0)
+		if (index < activeObstacleList.length && index >= 0)
 		{
-			activeObjList[index] = null;
-			numActiveObj = numActiveObj - 1;
+			activeObstacleList[index] = null;
+			numActiveObstacle = numActiveObstacle - 1;
 		}
 		
 	}
 	
-	// Creates a new Player object and adds it to the activeObjList.
+	// Creates a new Player object
 	public void instantiatePlayer(AnimationApplication gameEngine)
 	{
-		if(numActiveObj < MAX_ACTIVE_OBJECTS && 
-		   numActiveObj >=0)
-		{
-			//Player playerCharacter = new Player();
-			//activeObjList[0] = playerCharacter;
-			Scanner playerObject = new Scanner(System.in); //using Scanner Object as placeholder until real classes are imported.
-			numActiveObj++;
-			gameEngine.addToActiveObjList(playerObject);
-		}
-		
-		else
-		{
-			System.out.println("Cannot instantiate player. The number of active objects");
-			System.out.println("exceeds the max object limit or the number of objects is a");
-			System.out.println("negative number. The current number of objects is " + numActiveObj + ".");
-			System.out.println("");
-		}
+			Player playerObject = new Player();
 	}
 	
 	
-	// Creates new Obstacle object and adds it to the activeObjList.
+	// Creates new Obstacle object and adds it to the activeObstacleList.
 	public void instantiateObstacle(AnimationApplication gameEngine)
 	{
-		if( numActiveObj < MAX_ACTIVE_OBJECTS && 
-		    numActiveObj >= 0 )
-		{
-			//Obstacle obstacleCharacter = new Obstacle();
-			//activeObjList[0] = obstacleCharacter;
-			
+		if( numActiveObstacle < MAX_ACTIVE_OBSTACLES && 
+		    numActiveObstacle >= 0 )
+		{	
 			Scanner obstacleObject = new Scanner(System.in); //using Scanner Object as placeholder until real classes are imported.
-			numActiveObj++;
-			gameEngine.addToActiveObjList(obstacleObject);
+			numActiveObstacle++;
+			gameEngine.addToActiveObstacleList(obstacleObject);
 		}
 		
-		else
+		else // this is for testing method. Will remove later.
 		{
 			System.out.println("Cannot instantiate object. The number of active objects");
 			System.out.println("exceeds the max object limit or the number of objects is a");
 			System.out.println("negative number.");
-			System.out.println("Current Number of Objects: " +  numActiveObj);
+			System.out.println("Current Number of Objects: " +  numActiveObstacle);
 		}
 		
 	}
 	
-	
 	public static void main(String[]args)
 	{
 		AnimationApplication gameEngine = new AnimationApplication();
-		
-		//OBJECT INSTANTIATION TEST
-		System.out.println("");
-		System.out.println("Max Number of Active Objects: " + gameEngine.MAX_ACTIVE_OBJECTS);
-		System.out.println("");
-		System.out.println("Number of instantiated objects at application start = " + gameEngine.numActiveObj);
-		System.out.println("");
-		gameEngine.printActiveObjList(gameEngine.activeObjList);
-		System.out.println("");
-		
+		gameEngine.instantiateObstacle(gameEngine);
+		gameEngine.instantiateObstacle(gameEngine);
+		gameEngine.instantiateObstacle(gameEngine);
+		gameEngine.instantiateObstacle(gameEngine);
+		gameEngine.instantiateObstacle(gameEngine);
 		gameEngine.instantiatePlayer(gameEngine);
-		System.out.println("After 1 player instantiated # active objects = " + gameEngine.numActiveObj);
-		System.out.println("");
-		
-		gameEngine.instantiateObstacle(gameEngine);
-		gameEngine.instantiateObstacle(gameEngine);
-		gameEngine.instantiateObstacle(gameEngine);
-		System.out.println("After 3 obstacles instantiated # active objects = " + gameEngine.numActiveObj);
-		System.out.println("");
-		
-		gameEngine.printActiveObjList(gameEngine.activeObjList); // print list to see if objects properly instantiated.
-		System.out.println("");
-		
-		System.out.println("Try instantiating one objects too many:");
-		System.out.println("");
-		gameEngine.instantiatePlayer(gameEngine); //Test to make sure I don't accidentally instantiate another object above max.
-		System.out.println("");
-		
-		System.out.println("Try deleting objects at indexes 0 and 3 and show list afterwards.");
-		System.out.println("");
-		gameEngine.deleteActiveObject(3);        				// Delete objects at index 2 and 3 of activeObjList.
-		gameEngine.deleteActiveObject(0);
-		gameEngine.printActiveObjList(gameEngine.activeObjList); // print out activeObjList to see if item was properly deleted.
-		System.out.println("");
-		System.out.println(" Number of active objects = " + gameEngine.numActiveObj);
-		System.out.println("");
-		
-		System.out.println("Add one more object for fun");
-		System.out.println("");
-		gameEngine.instantiateObstacle(gameEngine);
-		System.out.println("");
-		gameEngine.printActiveObjList(gameEngine.activeObjList);
-		System.out.println("");
-		System.out.println(" Number of active objects = " + gameEngine.numActiveObj);
-		
-		
-		
-		
-		
+		gameEngine.printActiveObstacleList(gameEngine.activeObstacleList);
+		System.out.println("Please ENTER an integer: ");
+		int aNum = gameEngine.activeObstacleList[1].nextInt(); // Testing to make sure we can use the methods in our indexed object.
+		System.out.println("Your Number is: " + aNum);
 		
 	}
 }
