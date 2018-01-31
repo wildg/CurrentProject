@@ -1,0 +1,27 @@
+For the demo one our project will follow these basic guidelines.
+
+1. Instantiated objects will move along the ground from right to left.
+
+2. When an instantiated obstacle hits the edge of the screen or collides with
+   the player character, it is deleted and removed from its corresponding active 
+   object list.
+   
+3. The screen will consist of x and y nodes ranging (widthxlength)=(3x10).
+   Or 30 units. 0 will be at the top left corner of the grid.
+ 
+4. Every object is the size of one node, and if the nodes overlap a collision is
+   registered.
+   
+5. Minimum output will just display positions of instantiated objects, and if there
+   are collisions. If time permits Brandon will create a simple text-graphic interface.
+
+6. Objects will be instantiated on a random basis with a cap controlling how many can apper
+   onscreen at once.
+   
+7. When the player character collides with an obstacle its health attribute will diminish. A
+   text output will keep track of this, and if the character runs out of health a game over
+   will be initiated, ending the program.
+   
+   
+
+  
