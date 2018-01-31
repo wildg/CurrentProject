@@ -30,3 +30,7 @@ Version 16 Notes: JAN 3Oth
 					2. Changed a few local variable names.
 					3. Created a new method to delete an object from activeObjLists
 					4. Made my comments clearer.
+____________________________________________________________________________________________________________
+Version 17 Notes: JAN 30th
+
+			1. Fixed <=MAX_ACTIVE_OBJECTS to < MAX_ACTIVE_OBJECTS in if statement of instantiateObject method.
