@@ -25,12 +25,29 @@ ________________________________________________________________________________
 					 
 Version 16 Notes: JAN 3Oth
 
-					In this version I've
+					In this version I've:
 					1. Cleaned up the object instantiation test and added more tests for my methods
 					2. Changed a few local variable names.
 					3. Created a new method to delete an object from activeObjLists
 					4. Made my comments clearer.
-____________________________________________________________________________________________________________
+					
+______________________________________________________________________________________________________________
+
 Version 17 Notes: JAN 30th
 
 			1. Fixed <=MAX_ACTIVE_OBJECTS to < MAX_ACTIVE_OBJECTS in if statement of instantiateObject method.
+			
+______________________________________________________________________________________________________________
+
+Version 18 Notes: JAN 30
+	
+			1. Remove object method test in main method.
+			2. import Player Class. Current working version
+			   in my structure is PlayerWV2.java
+			3. Changed any references activeObjList to activeObstacleList. It will only
+			   deal with objects of Obstacle type, although for the time being I'm using 
+			   Scanner as a placeholder.
+			4. Changed all methods to reflect changes in program form, replacing obj
+			   with obstacle.
+			5. Updated comments to reflect changes
+			6. Created test to test simple changes.
