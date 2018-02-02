@@ -31,7 +31,7 @@ Version 16 Notes: JAN 3Oth
 					3. Created a new method to delete an object from activeObjLists
 					4. Made my comments clearer.
 					
-____________________________________________________________________________________________________________
+______________________________________________________________________________________________________________
 
 Version 17 Notes: JAN 30th
 
@@ -51,3 +51,16 @@ Version 18 Notes: JAN 30
 			   with obstacle.
 			5. Updated comments to reflect changes
 			6. Created test to test simple changes.
+______________________________________________________________________________________________________________
+			
+Version 19 Notes: FEB 1st
+
+			1. Updated printActiveObstacleList method, by removing parameters, and making
+			   method only print contents of that instance variable.
+			2. Updated method descriptions, and made them Java-doc compatible, as well as version description.
+			3. Removed unnecessary parameter for instantiation methods.
+			4. Added several new instance variables to control max objects instantiated
+			   and keep track of how many objects have been instantiated.	
+			5. Created new active object lists.
+			6. Changed printActiveObstacleList to a method capable of printing any of the active object lists
+			   called printActiveObjectList
