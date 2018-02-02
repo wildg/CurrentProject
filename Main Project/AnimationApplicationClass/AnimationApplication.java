@@ -7,27 +7,23 @@ import java.util.Scanner;
 	// 
 	
 	/* 
-	Version 19
-	1. Updated printActiveObstacleList method, by removing parameters, and making
-	   method only print contents of that instance variable.
-	2. Updated method descriptions, and made them Java-doc compatible, as well as version description.
-	3. Removed unnecessary parameter for instantiation methods.
-	4. Added several new instance variables to control max objects instantiated
-	   and keep track of how many objects have been instantiated.	
-	5. Created new active object lists.
-	6. Changed printActiveObstacleList to a method capable of printing any of the active object lists
-	   called printActiveObjectList
+	Version 20
+	1. Made addToActiveObstacleList a private method.
+	2. Added addToActiveCollectibleList and addToActivePlayerList methods.
+	3. Made certain instance variables plural.
+	4. Removed separate methods to instantiate objects and placed them into one method
+	   instantiateObject.
 	**/
 
 public class AnimationApplication
 {
-	private final int MAX_ACTIVE_OBSTACLES = 2; 
-	private final int MAX_ACTIVE_PLAYERS = 1;
-	private final int MAX_ACTIVE_COLLECTIBLES = 1;
+	private final int MAX_ACTIVE_OBSTACLES = 4; 
+	private final int MAX_ACTIVE_PLAYERS = 4;
+	private final int MAX_ACTIVE_COLLECTIBLES = 4;
 	
-	private int numActiveObstacle = 0;
-	private int numActivePlayer = 0;
-	private int numActiveCollectibles = 0;
+	private int numActiveObstacles = 0;
+	private int numActivePlayers = 0;
+	private int numActiveCollectibles= 0;
 	
 	// The following are the active object lists. They maintain references to objects that are currently
 	// active in the game.
@@ -35,7 +31,8 @@ public class AnimationApplication
 	Player[] activePlayerList = new Player[MAX_ACTIVE_PLAYERS];
 	Scanner[] activeCollectibleList= new Scanner[MAX_ACTIVE_COLLECTIBLES]; // Will use Scanner for Array type until Collectible class imported.
 	
-	public void addToActiveObstacleList(Scanner myObject)
+	/*Places newly instantiated obstacles in the first free index of the activeObstacleList**/
+	private void addToActiveObstacleList(Scanner myObject)
 	{
 		for(int index=0; index < activeObstacleList.length; index++)
 		{
@@ -48,12 +45,42 @@ public class AnimationApplication
 		}
 	}
 	
-	/*Prints out contents of one of the Active Object Lists. Prints out a list 
-      corresponding to the String that the method takes as an argument. Valid String
-      arguments are as follows: "obstacle","collectible","player"**/
+	/*Places newly instantiated players in the first free index of the activePlayerList**/
+	private void addToActivePlayerList(Player myObject)
+	{
+		for(int index=0; index < activePlayerList.length; index++)
+		{
+			if(activePlayerList[index] == null)
+			{
+				activePlayerList[index] = myObject;
+				break;
+			}
+			
+		}
+	}
+	
+	/*Places newly instantiated collectibles in the first free index of the activeCollectibleList**/
+	private void addToActiveCollectibleList(Scanner myObject)
+	{
+		for(int index=0; index < activeCollectibleList.length; index++)
+		{
+			if(activeCollectibleList[index] == null)
+			{
+				activeCollectibleList[index] = myObject;
+				break;
+			}
+			
+		}
+	}
+
+	/*Prints out contents of one of the Active Object Lists corresponding 
+	  to the String that the method takes as an argument. Valid String
+      arguments are as follows: "Obstacle","Collectible", and "Player".
+	  Case matters.**/
 	public void printActiveObjectList(String whichList)
 	{
-		if(whichList.equalsIgnoreCase("obstacle"))
+		//Prints out obstacle list.
+		if(whichList.equals("Obstacle"))
 		{
 			System.out.print("activeObstacleList: [ "); 
 			for(int index = 0; index < activeObstacleList.length;) 
@@ -74,7 +101,8 @@ public class AnimationApplication
 			System.out.println("]");
 		}
 		
-		if(whichList.equalsIgnoreCase("collectible"))
+		// Prints out collectible list.
+		if(whichList.equals("Collectible"))
 		{
 			System.out.print("activeCollectibleList: [ "); 
 			for(int index = 0; index < activeCollectibleList.length;) 
@@ -95,7 +123,8 @@ public class AnimationApplication
 			System.out.println("]");
 		}
 		
-		if(whichList.equalsIgnoreCase("player"))
+		// Prints out player list.
+		if(whichList.equals("Player"))
 		{
 			System.out.print("activePlayerList: [ "); 
 			for(int index = 0; index < activePlayerList.length;) 
@@ -124,50 +153,109 @@ public class AnimationApplication
 		if (index < activeObstacleList.length && index >= 0)
 		{
 			activeObstacleList[index] = null;
-			numActiveObstacle = numActiveObstacle - 1;
+			numActiveObstacles = numActiveObstacles - 1;
 		}
 		
 	}
 	
-	/* Creates a new Player object **/
-	public void instantiatePlayer()
+	/* Instantiate a new object corresponding to a String that describes which type
+	   of object should be instantiated, and adds it to its corresponding Active
+	   Object List. Valid strings include: "Obstacle", "Player", and "Collectible".
+	   Case matters.**/
+	private void instantiateObject(String objectType)
 	{
-			Player playerObject = new Player();
-	}
-	
-	
-	/* Creates new Obstacle object and adds it to the activeObstacleList.**/
-	public void instantiateObstacle()
-	{
-		if( numActiveObstacle < MAX_ACTIVE_OBSTACLES && 
-		    numActiveObstacle >= 0 )
-		{	
-			Scanner obstacleObject = new Scanner(System.in); //using Scanner Object as placeholder until real classes are imported.
-			numActiveObstacle++;
-			addToActiveObstacleList(obstacleObject);
-		}
+		int maximumActive = 0;
+		int currentActive = 0;
+		boolean isObstacle = objectType.equals("Obstacle");
+		boolean isPlayer = objectType.equals("Player");
+		boolean isCollectible = objectType.equals("Collectible");
 		
-		else // this is for testing method. Will remove later.
+		if(!(isObstacle || isPlayer || isCollectible))
 		{
-			System.out.println("Cannot instantiate object. The number of active objects");
-			System.out.println("exceeds the max object limit or the number of objects is a");
-			System.out.println("negative number.");
-			System.out.println("Current Number of Objects: " +  numActiveObstacle);
+			System.out.println("");
+			System.out.println("ERROR: Please enter a valid String to define");
+			System.out.println(	"which type of object to instantiate when using");
+			System.out.println( "instantiateObject method: " +"'" + objectType +"' " + " is");
+			System.out.println( "not a valid string");
+			System.exit(0);
+		}
+		
+		if(isObstacle)
+		{
+			maximumActive = MAX_ACTIVE_OBSTACLES;
+			currentActive = numActiveObstacles;
+		}
+		else if(isPlayer)
+		{
+			maximumActive = MAX_ACTIVE_PLAYERS;
+			currentActive = numActivePlayers;
+		}
+		
+		else if(isCollectible)
+		{
+			maximumActive = MAX_ACTIVE_COLLECTIBLES;
+			currentActive = numActiveCollectibles;
+		}
+		
+		if( currentActive < maximumActive && 
+		    currentActive >= 0)
+		{	
+			if(isObstacle)
+			{
+				Scanner obstacleObject = new Scanner(System.in);
+				numActiveObstacles++;
+				currentActive = numActiveObstacles; // for debugging message
+				addToActiveObstacleList(obstacleObject);
+			}
+			
+			if(isPlayer)
+			{
+				Player playerObject = new Player(); 
+				numActivePlayers++;
+				currentActive = numActivePlayers; // for debugging message
+				addToActivePlayerList(playerObject);
+			}
+			
+			if(isCollectible)
+			{
+				Scanner collectibleObject = new Scanner(System.in);
+				numActiveCollectibles++;
+				currentActive = numActiveCollectibles; // for debugging message
+				addToActiveCollectibleList(collectibleObject);
+			}
+
+				
+		}
+		
+		else // for debugging
+		{
+			 System.out.println("");
+			 System.out.println("Can't instantiate anymore " + objectType + "s max exceeded"); 
+			 System.out.println("Current instantiated" + objectType + "s" + " = " + currentActive);
+			 System.out.println("");
 		}
 		
 	}
+	
 	
 	public static void main(String[]args)
 	{
 		AnimationApplication gameEngine = new AnimationApplication();
-		gameEngine.instantiateObstacle();
-		gameEngine.instantiatePlayer();
-		gameEngine.printActiveObjectList("obstacle");
-		gameEngine.printActiveObjectList("player");
-		gameEngine.printActiveObjectList("collectible");
-		System.out.println("Please ENTER an integer: ");
-		int aNum = gameEngine.activeObstacleList[0].nextInt(); // Testing to make sure we can use the methods in our indexed object.
-		System.out.println("Your Number is: " + aNum);
 		
+		gameEngine.instantiateObject("Player");
+		gameEngine.instantiateObject("Player");
+		gameEngine.instantiateObject("Player");
+		
+		gameEngine.instantiateObject("Obstacle");
+		gameEngine.instantiateObject("Obstacle");
+		gameEngine.instantiateObject("Obstacle");
+		
+		gameEngine.instantiateObject("Collectible");
+		gameEngine.instantiateObject("Collectible");
+		gameEngine.instantiateObject("Collectible");
+		
+		gameEngine.printActiveObjectList("Obstacle");
+		gameEngine.printActiveObjectList("Player");
+		gameEngine.printActiveObjectList("Collectible");
 	}
 }
