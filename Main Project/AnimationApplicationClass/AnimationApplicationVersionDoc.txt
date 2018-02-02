@@ -64,3 +64,10 @@ Version 19 Notes: FEB 1st
 			5. Created new active object lists.
 			6. Changed printActiveObstacleList to a method capable of printing any of the active object lists
 			   called printActiveObjectList
+______________________________________________________________________________________________________________			   
+Version 20 Notes
+			1. Made addToActiveObstacleList a private method.
+			2. Added addToActiveCollectibleList and addToActivePlayerList methods.
+			3. Made certain instance variables plural.
+			4. Removed separate methods to instantiate objects and placed them into one method
+			   instantiateObject
