@@ -1,22 +1,23 @@
-	// February , 2018
+	// February 2, 2018
 	
 	// By Mark Tremblay
 	
 	// 
 	
 	/* 
-	Version 22
-	1. Changed placeholder class for Obstacle and Collectibles from Scanner to String.
-	2. Changed printActiveObjectList class implementation to include a print out of active
-	   number of objects, and cleaned up implementation a bit.
-	3. Commented out debuggin sections of make methods.
+	Version 23
+	1. Created registerCollision class and functionality. At the current
+	   it deletes all objects in a type specified by a string argument, but in later
+	   implementation it will only delete overlapping objects. Otherwise functionality
+	   seems to work properly.
 	**/
 
 public class AnimationApplication
 {
-	private final int MAX_ACTIVE_OBSTACLES = 2; 
-	private final int MAX_ACTIVE_PLAYERS = 2;
-	private final int MAX_ACTIVE_COLLECTIBLES = 2;
+	// These values set size of Arrays that contain active objects.
+	private final int MAX_ACTIVE_OBSTACLES = 3; 
+	private final int MAX_ACTIVE_PLAYERS = 3;
+	private final int MAX_ACTIVE_COLLECTIBLES = 3;
 	
 	private int numActiveObstacles = 0;
 	private int numActivePlayers = 0;
@@ -245,6 +246,79 @@ public class AnimationApplication
 		}	
 	}
 	
+	/*Checks all active objects of a certain type, as specified by a String argument, for
+	  overlap with an active object it can collide with, and deletes the active object if 
+	  this is true. Valid String arguments include: "Obstacle", "Player" and "Collectible".
+	  Case matters. As of the current all active objects of a chosen type are deleted by
+	  the algorithm, but this will be changed to the former definition in a later 
+	  implementation.**/
+	private void registerCollision(String whichType)
+	{
+		boolean isObstacle = whichType.equals("Obstacle");
+		boolean isPlayer = whichType.equals("Player");
+		boolean isCollectible = whichType.equals("Collectible");
+		
+		boolean collisionHappened = true;
+		
+		Object[]listToCheck; 
+		listToCheck = new Object[1]; // Arbitrary Array size. Just need to initialize
+		
+		int numActive = 0;
+		
+		if(isObstacle)
+		{
+			listToCheck = new String[1];
+			listToCheck = activeObstacleList;
+			numActive = numActiveObstacles;
+		}
+		
+		else if(isPlayer)
+		{
+			listToCheck = new Player[1];
+			listToCheck = activePlayerList;
+			numActive = numActivePlayers;
+		}
+		
+		else if(isCollectible)
+		{
+			listToCheck = new String[1];
+			listToCheck = activeCollectibleList;
+			numActive = numActiveCollectibles;
+		}
+		
+		else
+		{
+			System.out.println("ERROR: Please enter a valid String argument for");
+			System.out.println("the registerCollision method: " + "'" + whichType + "'");
+			System.out.println("is not a valid argument.");
+			System.exit(0);
+		}
+		
+		if (numActive > 0)
+		{
+			for(int index = 0; index < listToCheck.length;index++) 
+			{
+				if(listToCheck[index] != null)
+					System.out.print("");
+					// collisionHappened = listToCheck[index].overlapMethod (note this overlapMethod should return true or false)
+				else
+					continue;
+				
+				if (collisionHappened)
+				{
+					if(isObstacle)
+						deleteObstacle(index);
+					
+					else if(isCollectible)
+						deleteCollectible(index);
+					
+					else if (isPlayer)
+						deletePlayer(index);
+				}
+			}
+		}
+	}
+	
 	public static void main(String[]args)
 	{
 		AnimationApplication gameEngine = new AnimationApplication();
@@ -261,13 +335,24 @@ public class AnimationApplication
 		gameEngine.makeCollectible(4,3);
 		gameEngine.makeCollectible(4,3);
 		
-		gameEngine.deletePlayer(1);
-		gameEngine.deleteObstacle(1);
-		gameEngine.deleteCollectible(1);
+		// gameEngine.deletePlayer(1);
+		// gameEngine.deleteObstacle(1);
+		// gameEngine.deleteCollectible(1);
 		
 		gameEngine.printActiveObjectList("Player");
 		gameEngine.printActiveObjectList("Obstacle");
 		gameEngine.printActiveObjectList("Collectible");
 		
+		gameEngine.registerCollision("Player");
+		gameEngine.registerCollision("Obstacle");
+		gameEngine.registerCollision("Collectible");
+		
+		System.out.println("");	
+		System.out.println("THERE WAS A SERIES OF UNFORTUNATE COLLISIONS");
+		System.out.println("");
+		
+		gameEngine.printActiveObjectList("Player");
+		gameEngine.printActiveObjectList("Obstacle");
+		gameEngine.printActiveObjectList("Collectible");
 	}
 }
