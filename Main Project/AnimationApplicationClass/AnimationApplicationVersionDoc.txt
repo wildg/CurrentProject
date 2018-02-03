@@ -126,3 +126,12 @@ ________________________________________________________________________________
 	*	 Object list to aid in overlap methods in other
 	*    classes.
 	*/
+______________________________________________________________________________________________________________	
+
+/** 
+	*Version 27 Feb 3rd
+	* 1. Removed all references to Obstacles and Collectibles being treated as Strings. The proper
+	*    object types: Obstacle and Collectible are now returned.
+	*/
+	
+______________________________________________________________________________________________________________
