@@ -1,23 +1,25 @@
-	// February 2, 2018
+	// February 3, 2018
 	
 	// By Mark Tremblay
 	
 	// 
 	
 	/* 
-	Version 23
-	1. Created registerCollision class and functionality. At the current
-	   it deletes all objects in a type specified by a string argument, but in later
-	   implementation it will only delete overlapping objects. Otherwise functionality
-	   seems to work properly.
+	Version 24
+	1. Updated some implementation comments.
+	2. Created MAX_OBJECTS_GAME instance variable.
+	3. Started game run algorithm in main method.
+	4. Created getPlayer(), getCollectible() and getObstacle() functions.
 	**/
 
 public class AnimationApplication
 {
 	// These values set size of Arrays that contain active objects.
-	private final int MAX_ACTIVE_OBSTACLES = 3; 
-	private final int MAX_ACTIVE_PLAYERS = 3;
-	private final int MAX_ACTIVE_COLLECTIBLES = 3;
+	private final int MAX_ACTIVE_OBSTACLES = 1; 
+	private final int MAX_ACTIVE_PLAYERS = 1;
+	private final int MAX_ACTIVE_COLLECTIBLES = 1;
+	
+	private final int MAX_OBJECTS_GAME = 2; // Will be mainly used to control instantiation in main method.
 	
 	private int numActiveObstacles = 0;
 	private int numActivePlayers = 0;
@@ -25,7 +27,6 @@ public class AnimationApplication
 	
 	// The following are the active object lists. They maintain references to objects that are currently
 	// active in the game.
-	
 	String[] activeObstacleList = new String[MAX_ACTIVE_OBSTACLES]; // Will use String for Array type until Obstacle class imported
 	Player[] activePlayerList = new Player[MAX_ACTIVE_PLAYERS];
 	String[] activeCollectibleList= new String[MAX_ACTIVE_COLLECTIBLES]; // Will use String for Array type until Collectible class imported.
@@ -119,20 +120,20 @@ public class AnimationApplication
 		}
 		
 		System.out.println("________________________________________________________");
-		System.out.print(listName + ": [ "); 
-		for(int index = 0; index < listToPrint.length;index++) 
+		System.out.print(listName + ": ["); 
+		for(int index = 0; index < listToPrint.length; index++) // Step through list and print.
 		{
-			if(listToPrint[index] != null)
+			if(listToPrint[index] != null) // If index not null print name.
 			{	
 				System.out.print(listToPrint[index].getClass().getName());
 			}
 			
-			else
+			else // If index is null print that index as is.
 			{
 				System.out.print(listToPrint[index]);
 			}
 			
-			if(index != listToPrint.length-1)
+			if(index != listToPrint.length-1) // Check each time so we don't print comma for final index.
 			{
 				System.out.print(" , ");
 			}
@@ -155,8 +156,15 @@ public class AnimationApplication
 		    currentActive >= 0)
 		{	
 			String obstacleObject = new String();
-			numActiveObstacles++;
+			numActiveObstacles++; 				  
 			addToActiveObstacleList(obstacleObject);
+			// NOTE: Since obstacleObject is local to this method,
+			// when this method is complete the only reference
+			// to the new Obstacle object is the index we set it to in the
+			// Obstacle[] instance variable activeObstacleList. Therefore
+			// when we remove this reference in deleteObstacle, Java will
+			// reallocate the memory for the unreferenced object, preventing
+			// garbage data building up. Same goes for other make methods.
 		}
 		
 		// else // for debugging
@@ -247,7 +255,7 @@ public class AnimationApplication
 	}
 	
 	/*Checks all active objects of a certain type, as specified by a String argument, for
-	  overlap with an active object it can collide with, and deletes the active object if 
+	  overlap with an active object it can collide with, and takes necessary action if 
 	  this is true. Valid String arguments include: "Obstacle", "Player" and "Collectible".
 	  Case matters. As of the current all active objects of a chosen type are deleted by
 	  the algorithm, but this will be changed to the former definition in a later 
@@ -258,7 +266,8 @@ public class AnimationApplication
 		boolean isPlayer = whichType.equals("Player");
 		boolean isCollectible = whichType.equals("Collectible");
 		
-		boolean collisionHappened = true;
+		boolean collisionHappened = false;
+		String collisionWithWhat = "None";
 		
 		Object[]listToCheck; 
 		listToCheck = new Object[1]; // Arbitrary Array size. Just need to initialize
@@ -300,7 +309,7 @@ public class AnimationApplication
 			{
 				if(listToCheck[index] != null)
 					System.out.print("");
-					// collisionHappened = listToCheck[index].overlapMethod (note this overlapMethod should return true or false)
+					// collisionHappened = listToCheck[index].didOverlapOccur()(note this overlapMethod should return true or false)
 				else
 					continue;
 				
@@ -312,47 +321,55 @@ public class AnimationApplication
 					else if(isCollectible)
 						deleteCollectible(index);
 					
-					else if (isPlayer)
-						deletePlayer(index);
+					else if(isPlayer)
+						// collisionWithWhat = listToCheck.overlapWithType()(note this method should return a String)
+						getPlayer(index).TakeDamage();
 				}
 			}
 		}
+	}
+	
+	/*Returns Player object at specified index. **/
+	private Player getPlayer(int index)
+	{
+		return activePlayerList[index];
+	}
+	
+	/*Returns Obstacle object at specified index. **/
+	private String getObstacle(int index)
+	{
+		return activeObstacleList[index];
+	}
+	
+	/*Returns Collectible object at specified index. **/
+	private String getCollectible(int index)
+	{
+		return activeCollectibleList[index];
 	}
 	
 	public static void main(String[]args)
 	{
 		AnimationApplication gameEngine = new AnimationApplication();
 		
-		gameEngine.makePlayer(4,3);
-		gameEngine.makePlayer(4,3);
-		gameEngine.makePlayer(4,3);
-
-		gameEngine.makeObstacle(4,3);
-		gameEngine.makeObstacle(4,3);
-		gameEngine.makeObstacle(4,3);
+		gameEngine.makePlayer(0,10); 
+		Player playerOne = gameEngine.getPlayer(0); // NOTE: Make sure to clear this reference too if you delete player.
+		gameEngine.makeObstacle(30,10); // So we have at least one obstacle when game starts.
 		
-		gameEngine.makeCollectible(4,3);
-		gameEngine.makeCollectible(4,3);
-		gameEngine.makeCollectible(4,3);
+		boolean gameOver = (gameEngine.numActivePlayers < 0);
 		
-		// gameEngine.deletePlayer(1);
-		// gameEngine.deleteObstacle(1);
-		// gameEngine.deleteCollectible(1);
+		// gameEngine.printActiveObjectList("Player");
+		// gameEngine.printActiveObjectList("Obstacle");
 		
-		gameEngine.printActiveObjectList("Player");
-		gameEngine.printActiveObjectList("Obstacle");
-		gameEngine.printActiveObjectList("Collectible");
-		
-		gameEngine.registerCollision("Player");
-		gameEngine.registerCollision("Obstacle");
-		gameEngine.registerCollision("Collectible");
-		
-		System.out.println("");	
-		System.out.println("THERE WAS A SERIES OF UNFORTUNATE COLLISIONS");
-		System.out.println("");
-		
-		gameEngine.printActiveObjectList("Player");
-		gameEngine.printActiveObjectList("Obstacle");
-		gameEngine.printActiveObjectList("Collectible");
+		while(!(gameOver))
+		{
+			gameEngine.registerCollision("Player");
+			gameEngine.registerCollision("Obstacle");
+			gameEngine.registerCollision("Collectible");
+			
+			// gameEngine.printActiveObjectList("Player");
+			// gameEngine.printActiveObjectList("Obstacle");
+			
+			gameOver = true;
+		}
 	}
 }
