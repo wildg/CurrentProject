@@ -262,10 +262,10 @@ public class AnimationApplication
 				{
 					//getPlayer(playerIndex).hasCollisionObstacle <Obstacle[]> <gameEngine>
 					
-																							 // Method should check for collisions with objects
-																						     // in Obstacle[] given as argument, and take 
-																							 // necessary action using AnimationApplication
-																							 // argument; ie: gameEngine.deleteObstacle(index).
+										 // Method should check for collisions with objects
+										 // in Obstacle[] given as argument, and take 
+										 // necessary action using AnimationApplication
+										 // argument; ie: gameEngine.deleteObstacle(index).
 				}
 			}
 		}
@@ -278,10 +278,10 @@ public class AnimationApplication
 				{
 					//getPlayer(playerIndex).hasCollisionCollectible <Collectible[]> <gameEngine> 
 					
-																								   // Method should check for collisions with objects
-																								   // in Collectible[] given as argument, and take 
-																								   // necessary action using AnimationApplication
-																								   // argument; ie: gameEngine.deleteObstacle(index).
+									   // Method should check for collisions with objects
+									   // in Collectible[] given as argument, and take 
+									   // necessary action using AnimationApplication
+									   // argument; ie: gameEngine.deleteObstacle(index).
 				}
 			}
 		}
