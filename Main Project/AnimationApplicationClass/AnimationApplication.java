@@ -358,10 +358,7 @@ public class AnimationApplication
 		boolean gameOver = (gameEngine.numActivePlayers < 0);
 	
 		while(!(gameOver))
-		{	
-			System.out.println("");
-			System.out.println("IS PLAYER ONE ALIVE: " + playerOne.IsAlive() );
-			
+		{				
 			gameEngine.printActiveObjectList("Player");
 			gameEngine.printActiveObjectList("Obstacle");
 			gameEngine.printActiveObjectList("Collectible");
