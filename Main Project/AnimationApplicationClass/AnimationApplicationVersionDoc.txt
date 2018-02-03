@@ -74,7 +74,7 @@ Version 20 Notes FEB 1ST
 ______________________________________________________________________________________________________________
 
 Version 21 Notes FEB 2nd
-			1. Removed instantiateObject method. Was too complex. Replaced with makeObstacle(), makeCollectible, and 			           makePlayer()
+			1. Removed instantiateObject method. Was too complex. Replaced with makeObstacle(), makeCollectible, and makePlayer()
 			   classes. These new methods take integer x and y positions as arguments.
 			2. Cleaned  up implementation of printActiveObjectList.
 			3. Created deleteCollectible and deletePlayer methods.
@@ -97,3 +97,22 @@ Version 23 Notes Feb 2nd
 			   it deletes all objects in a type specified by a string argument, but in later
 			   implementation it will only delete overlapping objects. Otherwise functionality
 			   seems to work properly.
+			   
+______________________________________________________________________________________________________________
+
+Version 24 Notes Feb 3rd
+
+			1. Updated some implementation comments.
+			2. Created MAX_OBJECTS_GAME instance variable.
+			3. Started game run algorithm in main method.
+			4. Created getPlayer(), getCollectible() and getObstacle() functions.
+
+
+______________________________________________________________________________________________________________
+Version 25 Notes Feb 3rd
+
+			1. Overhauled registerCollison() so that now its registerCollsionPlayer() and handles
+			   collisions with players for demo 1.
+			2. Removed debug else in make methods.
+			3. Made properly javaDoc compatible.
+______________________________________________________________________________________________________________
