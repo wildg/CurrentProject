@@ -5,11 +5,13 @@
 	// 
 	
   /** 
-	*Version 25
-	* 1. Overhauled registerCollison() so that now its registerCollsionPlayer() and handles
-	*    collisions with players for demo 1.
-	* 2. Removed debug else in make methods.
-	* 3. Made properly javaDoc compatible.
+	*Version 26
+	* 1. Adjusted comments in registerPlayerCollision to 
+	* 	 better describe process.
+	* 2. Created get****Length methods to return integer
+	*    representing the length of a particular active 
+	*	 Object list to aid in overlap methods in other
+	*    classes.
 	*/
 
 public class AnimationApplication
@@ -248,7 +250,7 @@ public class AnimationApplication
 	}
 	
 	/** 
-	  * Checks all active player objects of a certain type for collisions with valid active objects, as specified
+	  * Checks all active Player objects for collisions with members of a valid active object type, as specified
 	  * by a String argument, and takes necessary action if this is true. As of the current this method is not fully 
 	  * implemented. Valid arguments for String include "Obstacle", and "Collectible". Case matters.
 	  */
@@ -260,12 +262,13 @@ public class AnimationApplication
 			{
 				for(int playerIndex = 0; playerIndex < activePlayerList.length; playerIndex++) // Run through each index of activePlayerList
 				{
-					//getPlayer(playerIndex).hasCollisionObstacle <Obstacle[]> <gameEngine>
+					//getPlayer(playerIndex).hasCollisionObstacle <AnimationApplication>
 					
 										 // Method should check for collisions with objects
-										 // in Obstacle[] given as argument, and take 
-										 // necessary action using AnimationApplication
-										 // argument; ie: gameEngine.deleteObstacle(index).
+										 // in activeObstacleList by stepping through it using
+										 // getObstacle() and activeObstacleLength() on the AnimationApplication 
+										 // object taken as an argument. If a collision is registered,
+										 // necessary action should be taken with the aid of deleteObstacle().
 				}
 			}
 		}
@@ -276,12 +279,13 @@ public class AnimationApplication
 			{
 				for(int playerIndex = 0; playerIndex < activePlayerList.length; playerIndex++) // Run through each index of activePlayerList
 				{
-					//getPlayer(playerIndex).hasCollisionCollectible <Collectible[]> <gameEngine> 
+					//getPlayer(playerIndex).hasCollisionCollectible <gameEngine> 
 					
 									   // Method should check for collisions with objects
-									   // in Collectible[] given as argument, and take 
-									   // necessary action using AnimationApplication
-									   // argument; ie: gameEngine.deleteObstacle(index).
+									   // in activeCollectibleList by stepping through it using
+									   // getCollectible() and activeCollectibleLength() on the AnimationApplication 
+									   // object taken as an argument. If a collision is registered,
+									   // necessary action should be taken with the aid of deleteCollectible().
 				}
 			}
 		}
@@ -296,7 +300,7 @@ public class AnimationApplication
 	}
 	
 	/** 
-	  * Returns Player object at specified index.
+	  * Returns Player object at specified index in activePlayerList.
 	  **/
 	public Player getPlayer(int index)
 	{
@@ -304,7 +308,7 @@ public class AnimationApplication
 	}
 	
 	/** 
-	  *Returns Obstacle object at specified index.
+	  *Returns Obstacle object at specified index in activeObstacleList.
 	  */
 	public String getObstacle(int index)
 	{
@@ -312,11 +316,35 @@ public class AnimationApplication
 	}
 	
 	/** 
-	  * Returns Collectible object at specified index. 
+	  * Returns Collectible object at specified index in activeCollectibleList.
 	  */
 	public String getCollectible(int index)
 	{
 		return activeCollectibleList[index];
+	}
+	
+	/** 
+	  *Returns an integer corresponding to the size of the activeObstacleList
+	  */
+	public int activeObstacleLength()
+	{
+		return MAX_ACTIVE_OBSTACLES;
+	}
+	
+	/** 
+	  *Returns an integer corresponding to the size of the activeCollectibleList
+	  */
+	public int activeCollectibleLength()
+	{
+		return MAX_ACTIVE_COLLECTIBLES;
+	}
+	
+	/** 
+	  *Returns an integer corresponding to the size of the activePlayerList
+	  */
+	public int activePlayerLength()
+	{
+		return MAX_ACTIVE_PLAYERS;
 	}
 	
 	public static void main(String[]args)
@@ -337,6 +365,11 @@ public class AnimationApplication
 			gameEngine.printActiveObjectList("Player");
 			gameEngine.printActiveObjectList("Obstacle");
 			gameEngine.printActiveObjectList("Collectible");
+			
+			gameEngine.registerCollisionPlayer("Collectible");
+			gameEngine.registerCollisionPlayer("Obstacle");
+			
+			System.out.println(gameEngine.activePlayerLength() + " , " + gameEngine.activeObstacleLength() + " , " + gameEngine.activeCollectibleLength());
 			
 			gameOver = true;
 		}
