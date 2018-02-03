@@ -5,21 +5,17 @@
 	// 
 	
   /** 
-	*Version 26
-	* 1. Adjusted comments in registerPlayerCollision to 
-	* 	 better describe process.
-	* 2. Created get****Length methods to return integer
-	*    representing the length of a particular active 
-	*	 Object list to aid in overlap methods in other
-	*    classes.
+	*Version 27 Feb 3rd
+	* 1. Removed all references to Obstacles and Collectibles being treated as Strings. The proper
+	*    object types: Obstacle and Collectible are now returned.
 	*/
 
 public class AnimationApplication
 {
 	// These values set size of Arrays that contain active objects.
-	private final int MAX_ACTIVE_OBSTACLES = 1; 
-	private final int MAX_ACTIVE_PLAYERS = 1;
-	private final int MAX_ACTIVE_COLLECTIBLES = 1;
+	private final int MAX_ACTIVE_OBSTACLES = 3; 
+	private final int MAX_ACTIVE_PLAYERS = 3;
+	private final int MAX_ACTIVE_COLLECTIBLES = 3;
 	
 	private final int MAX_OBJECTS_GAME = 2; // Will be mainly used to control instantiation in main method.
 	
@@ -29,14 +25,14 @@ public class AnimationApplication
 	
 	// The following are the active object lists. They maintain references to objects that are currently
 	// active in the game.
-	String[] activeObstacleList = new String[MAX_ACTIVE_OBSTACLES]; // Will use String for Array type until Obstacle class imported
+	Obstacle[] activeObstacleList = new Obstacle[MAX_ACTIVE_OBSTACLES]; // Will use String for Array type until Obstacle class imported
 	Player[] activePlayerList = new Player[MAX_ACTIVE_PLAYERS];
-	String[] activeCollectibleList= new String[MAX_ACTIVE_COLLECTIBLES]; // Will use String for Array type until Collectible class imported.
+	Collectible[] activeCollectibleList= new Collectible[MAX_ACTIVE_COLLECTIBLES]; // Will use String for Array type until Collectible class imported.
 	
 	/**
 	  *Places newly instantiated obstacles in the first free index of the activeObstacleList.
 	  */
-	private void addToActiveObstacleList(String myObject)
+	private void addToActiveObstacleList(Obstacle myObject)
 	{
 		for(int index=0; index < activeObstacleList.length; index++)
 		{
@@ -66,7 +62,7 @@ public class AnimationApplication
 	/** 
 	  *Places newly instantiated collectibles in the first free index of the activeCollectibleList.
 	  */
-	private void addToActiveCollectibleList(String myObject)
+	private void addToActiveCollectibleList(Collectible myObject)
 	{
 		for(int index=0; index < activeCollectibleList.length; index++)
 		{
@@ -165,7 +161,7 @@ public class AnimationApplication
 		if( currentActive < maximumActive && 
 		    currentActive >= 0)
 		{	
-			String obstacleObject = new String();
+			Obstacle obstacleObject = new Obstacle();
 			numActiveObstacles++; 				  
 			addToActiveObstacleList(obstacleObject);
 			// NOTE: Since obstacleObject is local to this method,
@@ -207,7 +203,7 @@ public class AnimationApplication
 		if( currentActive < maximumActive && 
 		    currentActive >= 0)
 		{	
-			String collectibleObject = new String();
+			Collectible collectibleObject = new Collectible();
 			numActiveCollectibles++;
 			addToActiveCollectibleList(collectibleObject);
 		}
@@ -310,7 +306,7 @@ public class AnimationApplication
 	/** 
 	  *Returns Obstacle object at specified index in activeObstacleList.
 	  */
-	public String getObstacle(int index)
+	public Obstacle getObstacle(int index)
 	{
 		return activeObstacleList[index];
 	}
@@ -318,7 +314,7 @@ public class AnimationApplication
 	/** 
 	  * Returns Collectible object at specified index in activeCollectibleList.
 	  */
-	public String getCollectible(int index)
+	public Collectible getCollectible(int index)
 	{
 		return activeCollectibleList[index];
 	}
@@ -359,14 +355,13 @@ public class AnimationApplication
 	
 		while(!(gameOver))
 		{				
+			gameEngine.makeCollectible(0,0); // To test to see if it appears in list.
 			gameEngine.printActiveObjectList("Player");
 			gameEngine.printActiveObjectList("Obstacle");
 			gameEngine.printActiveObjectList("Collectible");
 			
 			gameEngine.registerCollisionPlayer("Collectible");
 			gameEngine.registerCollisionPlayer("Obstacle");
-			
-			System.out.println(gameEngine.activePlayerLength() + " , " + gameEngine.activeObstacleLength() + " , " + gameEngine.activeCollectibleLength());
 			
 			gameOver = true;
 		}
