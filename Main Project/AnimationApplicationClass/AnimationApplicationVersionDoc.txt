@@ -116,3 +116,13 @@ Version 25 Notes Feb 3rd
 			2. Removed debug else in make methods.
 			3. Made properly javaDoc compatible.
 ______________________________________________________________________________________________________________
+
+  /** 
+	*Version 26 Feb 3rd
+	* 1. Adjusted comments in registerPlayerCollision to 
+	* 	 better describe process.
+	* 2. Created get****Length methods to return integer
+	*    representing the length of a particular active 
+	*	 Object list to aid in overlap methods in other
+	*    classes.
+	*/
