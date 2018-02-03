@@ -74,7 +74,26 @@ Version 20 Notes FEB 1ST
 ______________________________________________________________________________________________________________
 
 Version 21 Notes FEB 2nd
-			1. Removed instantiateObject method. Was too complex. Replaced with makeObstacle(), makeCollectible, and 	                            makePlayer classes. These new methods take integer x and y positions as arguments.
+			1. Removed instantiateObject method. Was too complex. Replaced with makeObstacle(), makeCollectible, and 			           makePlayer()
+			   classes. These new methods take integer x and y positions as arguments.
 			2. Cleaned  up implementation of printActiveObjectList.
 			3. Created deleteCollectible and deletePlayer methods.
 			4. Tightened whitespace.
+			
+______________________________________________________________________________________________________________
+
+Version 22 Notes FEB 2ND
+
+			1. Changed placeholder class for Obstacle and Collectibles from Scanner to String.
+			2. Changed printActiveObjectList class implementation to include a print out of active
+			   number of objects, and cleaned up implementation a bit.
+			3. Commented out debuggin sections of make methods.
+	
+______________________________________________________________________________________________________________
+
+Version 23 Notes Feb 2nd
+			
+			1. Created registerCollision class and functionality. At the current
+			   it deletes all objects in a type specified by a string argument, but in later
+			   implementation it will only delete overlapping objects. Otherwise functionality
+			   seems to work properly.
