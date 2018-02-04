@@ -135,3 +135,12 @@ ________________________________________________________________________________
 	*/
 	
 ______________________________________________________________________________________________________________
+
+ /** 
+	*Version 27_2 Feb 3rd
+	* 1. Fixed a logic error in delete methods where it was possible to
+	*	 decrement numActiveObject variables below 0 by using the method
+	*	 on null indexes.
+	* 2. Fixed another error in delete methods where you could specify an
+	* 	 index out of range without warning.
+	*/
