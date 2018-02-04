@@ -5,9 +5,12 @@
 	// 
 	
   /** 
-	*Version 27 Feb 3rd
-	* 1. Removed all references to Obstacles and Collectibles being treated as Strings. The proper
-	*    object types: Obstacle and Collectible are now returned.
+	*Version 27_2 Feb 3rd
+	* 1. Fixed a logic error in delete methods where it was possible to
+	*	 decrement numActiveObject variables below 0 by using the method
+	*	 on null indexes.
+	* 2. Fixed another error in delete methods where you could specify an
+	* 	 index out of range without warning.
 	*/
 
 public class AnimationApplication
@@ -216,9 +219,26 @@ public class AnimationApplication
 	{
 		if (index < activeObstacleList.length && index >= 0)
 		{
-			activeObstacleList[index] = null;
-			numActiveObstacles = numActiveObstacles - 1;
-		}	
+			if(activeObstacleList[index]!=null) // So we can't make numActivePlayers a negative value by
+			{								    // making null indexes null and decrementing numActive.
+				activeObstacleList[index] = null;
+				numActiveObstacles = numActiveObstacles - 1;
+			}
+			
+			else
+			{
+				System.out.println("ILLEGAL ACTION: Tried to delete reference at an empty index of the activeObstacleList");
+				System.out.println("while using deleteObstacle()");
+				System.exit(0);
+			}
+		}
+		
+		else
+		{
+			System.out.println("ILLEGAL ACTION: Tried to delete an index out of the range of activeObstacleList");
+			System.out.println("while using deleteObstacle()");
+			System.exit(0);
+		}
 	}
 	
    /** 
@@ -228,9 +248,26 @@ public class AnimationApplication
 	{
 		if (index < activePlayerList.length && index >= 0)
 		{
-			activePlayerList[index] = null;
-			numActivePlayers = numActivePlayers - 1;
+			if(activePlayerList[index]!=null) // So we can't make numActivePlayers a negative value by
+			{								  // making null indexes null and decrementing numActive.
+				activePlayerList[index] = null;
+				numActivePlayers = numActivePlayers - 1;
+			}
+			
+			else
+			{
+				System.out.println("ILLEGAL ACTION: Tried to delete reference at an empty index of the activePlayerList");
+				System.out.println("while using deletePlayer()");
+				System.exit(0);
+			}
 		}	
+		
+		else
+		{
+			System.out.println("ILLEGAL ACTION: Tried to delete an index out of the range of activePlayerList");
+			System.out.println("while using deletePlayer()");
+			System.exit(0);
+		}
 	}
 	
 	/**  
@@ -240,9 +277,27 @@ public class AnimationApplication
 	{
 		if (index < activeCollectibleList.length && index >= 0)
 		{
-			activeCollectibleList[index] = null;
-			numActiveCollectibles = numActiveCollectibles - 1;
+			if(activeCollectibleList[index]!=null) // So we can't make numActiveCollectibles a negative value by
+												   // making null indexes null and decrementing numActive.
+			{
+				activeCollectibleList[index] = null;
+				numActiveCollectibles = numActiveCollectibles - 1;
+			}
+			
+			else
+			{
+				System.out.println("ILLEGAL ACTION: Tried to delete reference at an empty index of the activeCollectibleList");
+				System.out.println("while using deleteCollectible()");
+				System.exit(0);
+			}
 		}	
+		
+		else
+		{
+			System.out.println("ILLEGAL ACTION: Tried to delete an index out of the range of activeCollectibleList");
+			System.out.println("while using deleteCollectible()");
+			System.exit(0);
+		}
 	}
 	
 	/** 
